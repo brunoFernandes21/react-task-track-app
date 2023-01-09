@@ -1,0 +1,130 @@
+:root {
+  --background: #d4d8f0;
+  --headline: #232946;
+  --paragraph: #232946;
+  --button: #eebbc3;
+  --btn-text: #232946;
+  --navBackground: #232946;
+  --navHeadline: #fffffe;
+  --navTextHover: #b8c1ec;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+body {
+  background-color: var(--background);
+}
+
+
+/* Navbar styles  */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  height: 90px;
+  padding: 30px 25px; 
+  color: var(--text);
+  background-color: var(--navBackground);
+}
+.title {
+  color: var(--navHeadline);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+  transition: all 0.3s ease-in-out;
+}
+
+.links {
+  display: flex;
+}
+.links > a {
+  color: var(--navHeadline);
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 1.25rem;
+  /* border-right: 1px solid #d4d8f0; */
+  transition: all 0.3s ease-in-out;
+}
+.links > a:last-child {
+  border: none;
+  padding-right: none;
+}
+.links > a:hover {
+  color: var(--navTextHover);
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  overflow: auto;
+  min-height: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  background: var(--navHeadline);
+  /* Add shadow s to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+/* On mouse-over, add a deeper shadow */
+.container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--navBackground);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+.task {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task.reminder {
+  border-left: 5px solid green;
+}
+
+.task h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--navBackground);
+  color: #ffffff;
+  position: absolute;
+  width: 100%;
+  
+}
