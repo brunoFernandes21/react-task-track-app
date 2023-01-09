@@ -27,8 +27,19 @@ const App = () => {
     },
   ]);
 
-  const deleteButtonClick = () => {
-    console.log("deletebtnclicked")
+  //delete Task
+  const deleteTask = (id) => {
+    const filteredTasks = tasks.filter((task) => {
+      return task.id !== id
+    })
+    setTasks(filteredTasks)
+  }
+  //toggleReminder
+  const toggleReminder = (id) => {
+    const toggledTasks = tasks.map((task) => {
+      return task.id === id ? {...task, reminder: !task.reminder} : task
+    })
+    setTasks(toggledTasks)
   }
 
   return (
@@ -36,7 +47,8 @@ const App = () => {
       <Navbar/>
       <div className='container'>
        <Header/>
-        <Tasks tasks={tasks} deleteButtonClick={deleteButtonClick}/>
+        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
+        : <h3>Sorry there are no tasks to show</h3>}
       </div>
       <Footer/>
     </Router>
