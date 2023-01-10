@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 
 const App = () => {
   const [tasks, setTasks] = useState([
@@ -23,9 +24,18 @@ const App = () => {
         id: 3, 
         title: 'Food Shopping', 
         day: 'Feb 9th at 4:00pm',
-        reminder: true
+        reminder: false
     },
   ]);
+
+  //Add tasks
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newTask = {id,  ...task}
+    setTasks([...tasks, newTask])
+    console.log("Task added")
+    
+  }
 
   //delete Task
   const deleteTask = (id) => {
@@ -36,9 +46,9 @@ const App = () => {
   }
   //toggleReminder
   const toggleReminder = (id) => {
-    const toggledTasks = tasks.map((task) => {
-      return task.id === id ? {...task, reminder: !task.reminder} : task
-    })
+    const toggledTasks = tasks.map((task) => (
+      task.id === id ? {...task, reminder: !task.reminder} : task
+    ))
     setTasks(toggledTasks)
   }
 
@@ -47,8 +57,10 @@ const App = () => {
       <Navbar/>
       <div className='container'>
        <Header/>
+       <AddTask addTask={addTask}/>
         {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
         : <h3>Sorry there are no tasks to show</h3>}
+        
       </div>
       <Footer/>
     </Router>
