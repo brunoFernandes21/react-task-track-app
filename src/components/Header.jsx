@@ -1,13 +1,13 @@
 import React from 'react'
 import Button from './Button'
-const Header = () => {
-    const handleClick = () => {
-        console.log("btn clicked")
-    }
+
+const Header = (props) => {
+  const {onAdd, showForm} = props
+
   return (
     <header className='header'>
         <h1>Task Tracker</h1>
-        <Button color={"green"} text={"Add"} onClick={handleClick} />
+        <Button color={showForm ? "red" : "green"} text={showForm ? 'Close' : 'Add'} showAddForm={onAdd}/>
     </header>
   )
 }

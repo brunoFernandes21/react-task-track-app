@@ -17,6 +17,7 @@
 }
 body {
   background-color: var(--background);
+  /* height: 100vh; */
 }
 
 
@@ -169,13 +170,14 @@ body {
 }
 
 footer {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 70px;
   right: 0;
   left: 0;
-  bottom: 0;
+  /* bottom: 0; */
   background-color: var(--navBackground);
   color: #ffffff;
   width: 100%;

@@ -1,10 +1,10 @@
 import React from "react";
 
 const Button = (props) => {
-    const {color, text} = props
-    
+    const {color, text, showAddForm} = props
+   
   return (
-    <button className="btn" style={{background: color}}>{text}</button>
+    <button onClick={showAddForm} className="btn" style={{background: color}}>{text}</button>
   )
 };
 

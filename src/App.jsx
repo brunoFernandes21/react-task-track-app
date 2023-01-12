@@ -7,6 +7,7 @@ import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 
 const App = () => {
+  const [showForm, setShowForm] = useState(false)
   const [tasks, setTasks] = useState([
     {
         id: 1, 
@@ -34,7 +35,6 @@ const App = () => {
     const newTask = {id,  ...task}
     setTasks([...tasks, newTask])
     console.log("Task added")
-    
   }
 
   //delete Task
@@ -52,15 +52,23 @@ const App = () => {
     setTasks(toggledTasks)
   }
 
+  const showAddForm = () => {
+    // console.log("Button clicked")
+    setShowForm(!showForm)
+  }
+
   return (
     <Router>
       <Navbar/>
       <div className='container'>
-       <Header/>
-       <AddTask addTask={addTask}/>
+       <Header onAdd={showAddForm} showForm={showForm}/>
+        {showForm && <AddTask addTask={addTask}/>}
         {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
         : <h3>Sorry there are no tasks to show</h3>}
-        
+        {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
+        : <h3>Sorry there are no tasks to show</h3>}
+        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
+        : <h3>Sorry there are no tasks to show</h3>} */}
       </div>
       <Footer/>
     </Router>
