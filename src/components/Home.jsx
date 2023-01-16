@@ -8,9 +8,24 @@ import Tasks from './Tasks'
 const Home = () => {
     const [showForm, setShowForm] = useState(false)
     const [error, setError] = useState("");
-    const {tasks, setTasks} = usefetch('http://localhost:5000/tasks')
+    const [tasks, setTasks] = useState(null)
+    // const {tasks, setTasks} = usefetch('http://localhost:5000/tasks')
     const [isLoading, setIsLoading] = useState(false)
 
+    //get tasks from server
+    useEffect(() => {
+      const getTasks = async () => {
+        const tasksFromServer = await fetchTasks()
+        setTasks(tasksFromServer)
+      }
+      getTasks()
+    }, [])
+
+    const fetchTasks = async () => {
+      const response = await fetch("http://localhost:8000/tasks")
+      const data = await response.json()
+      return data
+    }
     //fetch task
     const fetchTask = async(id) => {
         const resp = await fetch(`http://localhost:5000/tasks/${id}`)
