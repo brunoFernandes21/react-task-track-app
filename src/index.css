@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   --background: #d4d8f0;
   --headline: #232946;
@@ -16,7 +21,7 @@
   font-family: 'Courier New', Courier, monospace;
 }
 body {
-  background-color: var(--background);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   /* height: 100vh; */
 }
 
@@ -63,6 +68,12 @@ body {
 }
 
 .container {
+  left      : 50%;
+  top       : 50%;
+  position  : absolute;
+  transform : translate(-50%, -50%);
+} 
+.content {
   max-width: 500px;
   margin: 40px auto;
   overflow: auto;
@@ -71,9 +82,9 @@ body {
   border-radius: 5px;
   background: var(--navHeadline);
   /* Add shadow s to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-}
+  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+  /* transition: 0.3s; */
+ } 
 /* On mouse-over, add a deeper shadow */
 .container:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -131,6 +142,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-weight: bold;
 }
 .add-form {
   margin-bottom: 40px;
@@ -142,6 +154,7 @@ body {
 
 .form-control label {
   display: block;
+  font-weight: bold;
 }
 
 .form-control input {
@@ -169,6 +182,22 @@ body {
   height: 20px;
 }
 
+.signup__btn {
+  background-color: #232946;
+  font-weight: 900;
+}
+.signup__link {
+  font-weight: 900;
+  transition: all 0.3s ease-in-out;;
+}
+.signup__link:hover {
+  /* background-color: #232946; */
+  text-decoration: underline;
+}
+.google {
+  background-color: #232946;
+}
+
 footer {
   position: absolute;
   display: flex;
@@ -181,4 +210,13 @@ footer {
   background-color: var(--navBackground);
   color: #ffffff;
   width: 100%;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 const AddTask = (props) => {
-    const {addTask} = props
+    const {addTask, setShowForm} = props
     const [formData, setFormData] = useState(
         {title: '', day: '', reminder: false}
     )
@@ -20,6 +20,7 @@ const AddTask = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         addTask(formData)
+        // setShowForm(false)
         setFormData(
             {title: '', day: '', reminder: false}
         )
