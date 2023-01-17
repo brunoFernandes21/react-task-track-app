@@ -35,13 +35,19 @@ const Register = () => {
   }
  
   const register = async () => {
-    const registerEmail = formData.email
-    const registerPassword = formData.password
     if(validatePassword()) {
       try {
         setError('')
         setLoading(true)
-        
+        const response = await fetch("http://localhost:8000/users", {
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify(formData),
+        })
+        const data = await response.json()
+        console.log(data)
       } catch (error) {
         setError(error.message)
         console.log(error.message)

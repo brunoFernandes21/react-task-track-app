@@ -1,71 +1,109 @@
-import express from 'express'
+import express, { request, response } from 'express'
 import bcrypt from 'bcrypt'
 import cors from 'cors'
+import { nanoid } from 'nanoid';
 
 const app = express()
 
 //this allows our app t he use json
 app.use(express.json())
 app.use(cors())
-
+app.use(express.urlencoded({extended: false}))
 //users array to store all new users
 const tasks = [
-    {
-        "title": "Doctors Appointment",
-        "day": "Feb 5th at 2:30pm",
-        "reminder": true,
-        "id": 1
-    },
-    {
-        "title": "Meeting at School",
-        "day": "May 10th at 1:30pm",
-        "reminder": false,
-        "id": 2
-    },
-    {
-        "title": "Food Shopping",
-        "day": "Feb 9th at 4:00pm",
-        "reminder": true,
-        "id": 3
-    },
-    {
-        "title": "Coding Challenge",
-        "day": "Friday",
-        "reminder": false,
-        "id": 5
-    },
-    {
-        "title": "New react Course",
-        "day": "28th Feb 2023",
-        "reminder": true,
-        "id": 6
-    }
+    // {
+    //     "title": "Doctors Appointment",
+    //     "day": "Feb 5th at 2:30pm",
+    //     "reminder": true,
+    //     "id": 1
+    // },
+    // {
+    //     "title": "Meeting at School",
+    //     "day": "May 10th at 1:30pm",
+    //     "reminder": false,
+    //     "id": 2
+    // },
+    // {
+    //     "title": "Food Shopping",
+    //     "day": "Feb 9th at 4:00pm",
+    //     "reminder": true,
+    //     "id": 3
+    // },
+    // {
+    //     "title": "Coding Challenge",
+    //     "day": "Friday",
+    //     "reminder": false,
+    //     "id": 5
+    // },
+    // {
+    //     "title": "New react Course",
+    //     "day": "28th Feb 2023",
+    //     "reminder": true,
+    //     "id": 6
+    // }
 ]
 
- const users = [
-    {
-        "name": "Emily",
-        "password": "lalalala"
-    }
- ]
+ const users = []
 
 app.get('/', (request, response) => {
     response.send("Success")
 })
-//testing our server by showing a message
+
 app.get('/tasks', (request, response) => {
     response.json(tasks)
 })
+app.post('/tasks', (request, response) => {
+    const id = nanoid()
+    const task = {
+        title: request.body.title,
+        day: request.body.day,
+        reminder: true,
+        id: id
+    }
+    tasks.push(task)
+    response.json(tasks)
+})
+
+
  app.get('/users', (request, response) => {
     response.json(users)
  })
   //registering a new user
-app.get('/register', (request, response) => {
-    
+app.post('/users', async (request, response) => {
+    try {
+        const hashedPassword = await bcrypt.hash(request.body.password, 10)
+        const user = { 
+            id: Date.now().toString(), 
+            name: request.body.name,
+            email: request.body.email,
+            password: hashedPassword
+        }
+        users.push(user)
+        response.status(201).send("User has been added")
+        // response.redirect('/login')
+    } catch (error) {
+        response.status(500).send(error)
+    }
+    console.log(users)
 })
 //login user in
-app.get('/login', (request, response) => {
-    response.send('login')
+app.post('/login', async (request, response) => {
+    // check if user name exists in our users array
+    const user = users.find(user => user.email === request.body.email)
+    //if not send error message
+    if(user === null) {
+        return response.status(400).send('User does not exists')
+    }
+    try {
+        if(await bcrypt.compare(request.body.password, user.password)){
+            response.send("Success")
+            console.log("User loggedin")
+        } else{
+            response.send('Wrong credentials')
+        }
+    } catch (error) {
+        response.status(500).send(error)
+    }  
 })
 
 

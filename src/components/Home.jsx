@@ -35,7 +35,7 @@ const Home = () => {
   //Add tasks
   const addTask = async (task) => {
     //add new task to server
-      const resp = await fetch("http://localhost:5000/tasks", {
+      const resp = await fetch("http://localhost:8000/tasks", {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json'
@@ -43,6 +43,7 @@ const Home = () => {
       body: JSON.stringify(task),
     })
     const data = await resp.json()
+    console.log(data)
     setTasks([...tasks, data])
     console.log("Task added")
   }
@@ -50,7 +51,7 @@ const Home = () => {
   const deleteTask = async (id) => {
     //delete task from server
     try {
-      await fetch(`http://localhost:5000/tasks/${id}`, {
+      await fetch(`http://localhost:8000/tasks/${id}`, {
       method: 'DELETE',
     })
     } catch (error) {
@@ -70,7 +71,7 @@ const Home = () => {
     const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder }
     console.log(updatedTask)
     //add this updated task to backend
-    const resp = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const resp = await fetch(`http://localhost:8000/tasks/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type' : 'application/json'

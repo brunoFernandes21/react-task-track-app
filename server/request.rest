@@ -2,19 +2,21 @@ Get http://localhost:8000/users
 
 
 ###
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "id" : 1,
+    "name": "Ana",
+    "email": "test.com",
+    "password": "test"
+}
+
+###
 POST http://localhost:8000/login
 Content-Type: application/json
 
 {
-    "name": "Bruno",
-    "password": "password"
-}
-
-###
-POST http://localhost:0000/users/login
-Content-Type: application/json
-
-{
-    "name": "Bruno",
-    "password": "pass"
+    "email": "test.com",
+    "password": "test"
 }
