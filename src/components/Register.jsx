@@ -7,7 +7,7 @@ import { useState } from "react";
 const Register = () => {
 
   const [formData, setFormData] = useState(
-    {fullname: "", email: "", password: "", confirm_password: ""}
+    {fullname: "", email: "", password: ""}
   )
   const [error, setError ] = useState('')
   const [loading, setLoading] = useState(false);
@@ -24,12 +24,9 @@ const Register = () => {
   }
   const validatePassword = () => {
     let isValid = true
-    if(formData.email !== '' && formData.password !== '' && formData.confirm_password !== ''){
-      if(formData.password !== formData.confirm_password){
-        isValid = false
-        setError('Passwords do not match')
-        console.log("Passwords do not match")
-      }
+    if(formData.email === '' && formData.password === ''){
+      isValid = false
+      setError('Please, fill all the fields')
     }
     return isValid
   }
@@ -46,6 +43,7 @@ const Register = () => {
           },
           body: JSON.stringify(formData),
         })
+        // navigate('/login')
         const data = await response.json()
         console.log(data)
       } catch (error) {
@@ -54,7 +52,6 @@ const Register = () => {
       }
       setLoading(false)
     }
-
   }
 
   return (
@@ -97,7 +94,7 @@ const Register = () => {
             onChange={handleChange}
             required
           />
-          <input
+          {/* <input
             type="password"
             className="block text-black border border-grey-light w-full p-3 rounded-full mb-4"
             name="confirm_password"
@@ -105,7 +102,7 @@ const Register = () => {
             placeholder="Confirm Password"
             onChange={handleChange}
             required
-          />
+          /> */}
           <button
           disabled={loading}
           onClick={register}

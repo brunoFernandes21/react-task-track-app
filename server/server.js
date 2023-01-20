@@ -74,14 +74,17 @@ app.post('/users', async (request, response) => {
         const hashedPassword = await bcrypt.hash(request.body.password, 10)
         const user = { 
             id: Date.now().toString(), 
-            name: request.body.name,
+            name: request.body.fullname,
             email: request.body.email,
             password: hashedPassword
         }
         users.push(user)
-        response.status(201).send("User has been added")
+        // response.redirect('login')
+        response.status(201).json(users)
+        console.log("New user has been created")
         // response.redirect('/login')
     } catch (error) {
+        // response.redirect('/register')
         response.status(500).send(error)
     }
     console.log(users)
@@ -91,19 +94,21 @@ app.post('/login', async (request, response) => {
     // check if user name exists in our users array
     const user = users.find(user => user.email === request.body.email)
     //if not send error message
-    if(user === null) {
-        return response.status(400).send('User does not exists')
+    if(!user) {
+        return response.status(400).json('User does not exists')
     }
     try {
         if(await bcrypt.compare(request.body.password, user.password)){
-            response.send("Success")
+            response.status(200).json("Login successfull")
+            // response.render('/login')
             console.log("User loggedin")
         } else{
-            response.send('Wrong credentials')
+            response.json('Wrong credentials')
         }
     } catch (error) {
-        response.status(500).send(error)
-    }  
+        response.status(500).json(error, "Bad request")
+    }
+
 })
 
 

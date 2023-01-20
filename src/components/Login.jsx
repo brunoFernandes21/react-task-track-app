@@ -31,11 +31,19 @@ const Login = () => {
     return isValid
   }
   const login = async () => {
-    const loginEmail = formData.email
-    const loginPassword = formData.password
-    if(validatePassword()) {
+      if(validatePassword()) {
       try {
-        
+        const response = await fetch("http://localhost:8000/login",
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify(formData),
+        })
+        // navigate('/')
+        const data = await response.json()
+        console.log(data)
       } catch (error) {
         setError("Incorrect password")
       }
